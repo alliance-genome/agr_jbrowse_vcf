@@ -72,15 +72,15 @@ parallel wget -q https://fms.alliancegenome.org/download/{}.gz ::: "${FILELIST[@
 
 parallel gzip -d {}.gz ::: "${FILELIST[@]}"
 
-parallel --link mv {} {} ::: "${FILELIST[@]}" ::: "${GENERICLIST[@]}"
+parallel --link cp {1} {2} ::: "${FILELIST[@]}" ::: "${GENERICLIST[@]}"
 
 parallel bgzip {} ::: "${GENERICLIST[@]}"
 
 parallel tabix {}.gz ::: "${GENERICLIST[@]}"
 
-parallel aws s3 cp --acl public-read {}.gz ::: "${GENERICLIST[@]}"
+parallel AWS_ACCESS_KEY_ID=$AWSACCESS AWS_SECRET_ACCESS_KEY=$AWSSECRET aws s3 cp --acl public-read {}.gz s3://$AWSBUCKET/VCF/$RELEASE/ ::: "${GENERICLIST[@]}"
 
-parallel aws s3 cp --acl public-read {}.gz.tbi ::: "${GENERICLIST[@]}"
+parallel AWS_ACCESS_KEY_ID=$AWSACCESS AWS_SECRET_ACCESS_KEY=$AWSSECRET aws s3 cp --acl public-read {}.gz.tbi s3://$AWSBUCKET/VCF/$RELEASE/ ::: "${GENERICLIST[@]}"
 
 
 
