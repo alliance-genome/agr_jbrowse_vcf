@@ -7,7 +7,9 @@ RUN git clone --single-branch --branch main https://github.com/alliance-genome/a
 #at the moment, this repo isn't used
 #RUN git clone --single-branch --branch master https://github.com/alliance-genome/agr_jbrowse_config.git
 
-RUN  mv agr_jbrowse_vcf/parallel.sh .
+RUN  mv agr_jbrowse_vcf/parallel.sh . && \
+     mv agr_jbrowse_vcf/human_fetch_and_upload.sh . && \
+     mv agr_jbrowse_vcf/mouse_fetch_and_upload.sh .
 
 
 #VOLUME /data
