@@ -73,10 +73,10 @@ CHROMOSOME=(
 
 for CHROM in "${CHROMOSOME[@]}" ; do
     echo "fetching chrom $CHROM files"
-    wget https://download.alliancegenome.org/variants/MGI/MGI.vep.$CHROM.vcf.gz
-    wget https://download.alliancegenome.org/variants/MGI/MGI.vep.$CHROM.vcf.gz.tbi
-    AWS_ACCESS_KEY_ID=$AWSACCESS AWS_SECRET_ACCESS_KEY=$AWSSECRET aws s3 cp --acl public-read MGI.vep.$CHROM.vcf.gz s3://$AWSBUCKET/docker/$RELEASE/MGI/mouse/VCF/MGI.vep.$CHROM.vcf.gz
-    AWS_ACCESS_KEY_ID=$AWSACCESS AWS_SECRET_ACCESS_KEY=$AWSSECRET aws s3 cp --acl public-read MGI.vep.$CHROM.vcf.gz.tbi s3://$AWSBUCKET/docker/$RELEASE/MGI/mouse/VCF/MGI.vep.$CHROM.vcf.gz.tbi
+    wget -q https://download.alliancegenome.org/variants/MGI/MGI.vep.$CHROM.vcf.gz
+    wget -q https://download.alliancegenome.org/variants/MGI/MGI.vep.$CHROM.vcf.gz.tbi
+    AWS_ACCESS_KEY_ID=$AWSACCESS AWS_SECRET_ACCESS_KEY=$AWSSECRET aws s3 cp --quiet --acl public-read MGI.vep.$CHROM.vcf.gz s3://$AWSBUCKET/docker/$RELEASE/MGI/mouse/VCF/MGI.vep.$CHROM.vcf.gz
+    AWS_ACCESS_KEY_ID=$AWSACCESS AWS_SECRET_ACCESS_KEY=$AWSSECRET aws s3 cp --quiet --acl public-read MGI.vep.$CHROM.vcf.gz.tbi s3://$AWSBUCKET/docker/$RELEASE/MGI/mouse/VCF/MGI.vep.$CHROM.vcf.gz.tbi
     rm MGI.vep.$CHROM.vcf.gz
     rm MGI.vep.$CHROM.vcf.gz.tbi
 done
