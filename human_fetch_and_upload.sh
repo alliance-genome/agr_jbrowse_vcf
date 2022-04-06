@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 
-RELEASE=5.1.1
+#RELEASE=5.1.1
 
 while getopts r:a:k:b: option
 do
