@@ -78,6 +78,11 @@ GENERICLIST=(
 'HTPOSTVEPVCF_SGD_latest.vcf'
 )
 
+HTPONLY=(
+'human'
+'mouse'
+)
+
 parallel wget -q https://fms.alliancegenome.org/download/{}.gz ::: "${FILELIST[@]}"
 
 parallel gzip -d {}.gz ::: "${FILELIST[@]}"
@@ -92,5 +97,5 @@ parallel AWS_ACCESS_KEY_ID=$AWSACCESS AWS_SECRET_ACCESS_KEY=$AWSSECRET aws s3 cp
 
 parallel AWS_ACCESS_KEY_ID=$AWSACCESS AWS_SECRET_ACCESS_KEY=$AWSSECRET aws s3 cp --acl public-read {}.gz.tbi s3://$AWSBUCKET/VCF/$RELEASE/ ::: "${GENERICLIST[@]}"
 
-
+parallel ./{}_fetch_and_upload.sh ::: "${HTPONLY[@]}"
 
