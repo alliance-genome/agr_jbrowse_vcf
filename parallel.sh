@@ -68,11 +68,11 @@ GENERICLIST=(
 'zebrafish-latest.vcf'
 )
 
-parallel wget -q https://fms.alliancegenome.org/download/{}.gz ; gzip -d {}.gz ::: "${FILELIST[@]}"
+parallel --link wget -q https://fms.alliancegenome.org/download/{}.gz ; gzip -d {}.gz ::: "${FILELIST[@]}" ::: "${FILELIST[@]}"
 
 parallel --link mv {} {} ::: "${FILELIST[@]}" ::: "${GENERICLIST[@]}"
 
-parallel bgzip {} ; tabix {} ; aws s3 cp --acl public-read fly-latest.vcf.gz s3://agrjbrowse/VCF/$RELEASE/{}.gz ; aws s3 cp --acl public-read fly-latest.vcf.gz s3://agrjbrowse/VCF/$RELEASE/{}.gz.tbi ::: "${GENERICLIST[@]}"
+parallel --link  bgzip {} ; tabix {} ; aws s3 cp --acl public-read fly-latest.vcf.gz s3://agrjbrowse/VCF/$RELEASE/{}.gz ; aws s3 cp --acl public-read fly-latest.vcf.gz s3://agrjbrowse/VCF/$RELEASE/{}.gz.tbi ::: "${GENERICLIST[@]}" ::: "${GENERICLIST[@]}" ::: "${GENERICLIST[@]}" ::: "${GENERICLIST[@]}"
 
 
 
