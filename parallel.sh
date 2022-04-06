@@ -82,7 +82,7 @@ parallel wget -q https://fms.alliancegenome.org/download/{}.gz ::: "${FILELIST[@
 
 parallel gzip -d {}.gz ::: "${FILELIST[@]}"
 
-parallel --link cp {1} {2} ::: "${FILELIST[@]}" ::: "${GENERICLIST[@]}"
+parallel --link mv {1} {2} ::: "${FILELIST[@]}" ::: "${GENERICLIST[@]}"
 
 parallel bgzip {} ::: "${GENERICLIST[@]}"
 
