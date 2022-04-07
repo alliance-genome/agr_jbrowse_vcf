@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 
-DEFULTRELEASE=5.2.0
+DEFAULTRELEASE=5.2.0
 
 while getopts r:a:k:b: option
 do
