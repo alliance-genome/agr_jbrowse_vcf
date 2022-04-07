@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 
-#RELEASE=5.1.1
+DEFULTRELEASE=5.2.0
 
 while getopts r:a:k:b: option
 do
@@ -25,6 +25,10 @@ done
 if [ -z "$RELEASE" ]
 then
     RELEASE=${ALLIANCE_RELEASE}
+fi
+if [ -z "$RELEASE" ]
+then
+    RELEASE=${DEFAULTRELEASE}
 fi
 
 if [ -z "$AWSBUCKET" ]

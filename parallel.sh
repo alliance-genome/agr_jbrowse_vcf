@@ -2,7 +2,7 @@
 
 set -e
 
-#RELEASE=5.1.1
+DEFULTRELEASE=5.2.0
 while getopts r:s:a:k: option
 do
 case "${option}"
@@ -25,6 +25,10 @@ done
 if [ -z "$RELEASE" ]
 then
     RELEASE=${ALLIANCE_RELEASE}
+fi
+if [ -z "$RELEASE" ]
+then
+    RELEASE=${DEFAULTRELEASE}
 fi
 
 if [ -z "$AWSACCESS" ]
