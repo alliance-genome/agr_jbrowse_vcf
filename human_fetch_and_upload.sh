@@ -24,7 +24,7 @@ done
 
 if [ -z "$RELEASE" ]
 then
-    RELEASE=${RELEASE}
+    RELEASE=${ALLIANCE_RELEASE}
 fi
 
 if [ -z "$AWSBUCKET" ]
