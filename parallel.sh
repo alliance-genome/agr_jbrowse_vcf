@@ -45,7 +45,7 @@ if [ -z "$AWSBUCKET" ]
 then
     if [ -z "${AWS_S3_BUCKET}" ]
     then
-        AWSBUCKET=agrjbrowse2
+        AWSBUCKET=agrjbrowse
     else
         AWSBUCKET=${AWS_S3_BUCKET}
     fi
@@ -62,10 +62,10 @@ FILELIST=(
 'VCF_GRCm39.vcf'
 'VCF_mRatBN7.2.vcf'
 'VCF_GRCz11.vcf'
-#'HTPOSTVEPVCF_FB.vcf'
-#'HTPOSTVEPVCF_RGD.vcf'
-#'HTPOSTVEPVCF_WB.vcf'
-#'HTPOSTVEPVCF_ZFIN.vcf'
+'HTPOSTVEPVCF_FB.vcf'
+'HTPOSTVEPVCF_RGD.vcf'
+'HTPOSTVEPVCF_WB.vcf'
+'HTPOSTVEPVCF_ZFIN.vcf'
 'HTPOSTVEPVCF_SGD.vcf'
 )
 
@@ -75,10 +75,10 @@ GENERICLIST=(
 'mouse-latest.vcf'
 'rat-latest.vcf'
 'zebrafish-latest.vcf'
-#'HTPOSTVEPVCF_FB_latest.vcf'
-#'HTPOSTVEPVCF_RGD_latest.vcf'
-#'HTPOSTVEPVCF_WB_latest.vcf'
-#'HTPOSTVEPVCF_ZFIN_latest.vcf'
+'HTPOSTVEPVCF_FB_latest.vcf'
+'HTPOSTVEPVCF_RGD_latest.vcf'
+'HTPOSTVEPVCF_WB_latest.vcf'
+'HTPOSTVEPVCF_ZFIN_latest.vcf'
 'HTPOSTVEPVCF_SGD_latest.vcf'
 )
 
