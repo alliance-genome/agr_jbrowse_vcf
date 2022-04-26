@@ -101,5 +101,9 @@ parallel AWS_ACCESS_KEY_ID=$AWSACCESS AWS_SECRET_ACCESS_KEY=$AWSSECRET aws s3 cp
 
 parallel AWS_ACCESS_KEY_ID=$AWSACCESS AWS_SECRET_ACCESS_KEY=$AWSSECRET aws s3 cp --acl public-read {}.gz.tbi s3://$AWSBUCKET/VCF/$RELEASE/ ::: "${GENERICLIST[@]}"
 
-parallel ./{}_fetch_and_upload.sh -r $RELEASE ::: "${HTPONLY[@]}"
+#parallel ./{}_fetch_and_upload.sh -r $RELEASE ::: "${HTPONLY[@]}"
+# decided not to do this in parallel--might be causing disk space issues
+./mouse_fetch_and_upload.sh -r $RELEASE
+./human_fetch_and_upload.sh -r $RELEASE
+
 
