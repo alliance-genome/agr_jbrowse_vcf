@@ -115,7 +115,8 @@ rm VCF_GRCm38*
 
 #parallel gzip -d {}.gz ::: "${FILELIST[@]}"
 #un parallel this to make life easier
-gzip -d *.gz
+#gzip -d *.gz
+ls *.vcf.gz | xargs -P 14 -n 1 gzip -d
 
 parallel --link mv *{1}.vcf {2} ::: "${BASENAME[@]}" ::: "${GENERICLIST[@]}"
 
