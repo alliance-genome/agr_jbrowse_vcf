@@ -87,7 +87,7 @@ HTPONLY=(
 'mouse'
 )
 
-parallel wget -q https://fms.alliancegenome.org/download/{}.gz ::: "${FILELIST[@]}"
+parallel wget -q https://fms.alliancegenome.org/api/data/download/{}.gz ::: "${FILELIST[@]}"
 
 parallel gzip -d {}.gz ::: "${FILELIST[@]}"
 
