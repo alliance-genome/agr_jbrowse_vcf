@@ -7,9 +7,9 @@ while getopts r:s:a:k: option
 do
 case "${option}"
 in
-r) 
-  RELEASE=${OPTARG}
-  ;;
+#r) 
+#  RELEASE=${OPTARG}
+#  ;;
 s) 
   SPECIES=${OPTARG}
   ;;
@@ -22,14 +22,14 @@ k)
 esac
 done
 
-if [ -z "$RELEASE" ]
-then
-    RELEASE=${ALLIANCE_RELEASE}
-fi
-if [ -z "$RELEASE" ]
-then
+#if [ -z "$RELEASE" ]
+#then
+#    RELEASE=${ALLIANCE_RELEASE}
+#fi
+#if [ -z "$RELEASE" ]
+#then
     RELEASE=${DEFAULTRELEASE}
-fi
+#fi
 
 if [ -z "$AWSACCESS" ]
 then
