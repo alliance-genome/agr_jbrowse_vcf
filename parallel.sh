@@ -104,10 +104,10 @@ HTPONLY=(
 #parallel wget -q https://fms.alliancegenome.org/download/{}.gz ::: "${FILELIST[@]}"
 
 #gets phenotypic vcf files
-curl https://fms.alliancegenome.org/api/datafile/by/VCF?latest=true | python get_vcf_urls.py | parallel
+curl https://fms.alliancegenome.org/api/datafile/by/VCF?latest=true | python3 get_vcf_urls.py | parallel
 
 #get high throughput vcf
-curl https://fms.alliancegenome.org/api/datafile/by/HTPOSTVEPVCF?latest=true | python get_vcf_urls.py | parallel
+curl https://fms.alliancegenome.org/api/datafile/by/HTPOSTVEPVCF?latest=true | python3 get_vcf_urls.py | parallel
 
 #get rid of vcf for old assemblies
 rm VCF_Rnor60*
