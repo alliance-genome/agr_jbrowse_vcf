@@ -57,11 +57,11 @@ echo "release"
 echo $RELEASE
 
 BASENAME=(
-'WBcel235'
-'R6'
-'GRCm39'
-'mRatBN7.2'
-'GRCz11'
+'VCF_WBcel235'
+'VCF_R6'
+'VCF_GRCm39'
+'VCF_mRatBN7.2'
+'VCF_GRCz11'
 'HTPOSTVEPVCF_FB'
 'HTPOSTVEPVCF_RGD'
 'HTPOSTVEPVCF_WB'
@@ -119,7 +119,7 @@ rm VCF_GRCm38*
 ls *.vcf.gz | xargs -P 14 -n 1 gzip -d
 
 
-parallel --link mv *{1}.vcf {2} ::: "${BASENAME[@]}" ::: "${GENERICLIST[@]}"
+parallel --link mv {1}*.vcf {2} ::: "${BASENAME[@]}" ::: "${GENERICLIST[@]}"
 
 #parallel --link mv {1} {2} ::: "${FILELIST[@]}" ::: "${GENERICLIST[@]}"
 
