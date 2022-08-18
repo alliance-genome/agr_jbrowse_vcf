@@ -2,14 +2,14 @@
 
 set -e
 
-DEFAULTRELEASE=5.2.2
+DEFAULTRELEASE=5.3.0
 while getopts r:s:a:k: option
 do
 case "${option}"
 in
-r) 
-  RELEASE=${OPTARG}
-  ;;
+#r) 
+#  RELEASE=${OPTARG}
+#  ;;
 s) 
   SPECIES=${OPTARG}
   ;;
@@ -22,14 +22,14 @@ k)
 esac
 done
 
-if [ -z "$RELEASE" ]
-then
-    RELEASE=${ALLIANCE_RELEASE}
-fi
-if [ -z "$RELEASE" ]
-then
+#if [ -z "$RELEASE" ]
+#then
+#    RELEASE=${ALLIANCE_RELEASE}
+#fi
+#if [ -z "$RELEASE" ]
+#then
     RELEASE=${DEFAULTRELEASE}
-fi
+#fi
 
 if [ -z "$AWSACCESS" ]
 then
@@ -117,6 +117,7 @@ rm VCF_GRCm38*
 #un parallel this to make life easier
 #gzip -d *.gz
 ls *.vcf.gz | xargs -P 14 -n 1 gzip -d
+
 
 parallel --link mv *{1}.vcf {2} ::: "${BASENAME[@]}" ::: "${GENERICLIST[@]}"
 
