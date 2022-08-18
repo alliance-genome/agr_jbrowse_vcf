@@ -56,6 +56,20 @@ echo $AWSBUCKET
 echo "release"
 echo $RELEASE
 
+BASENAME=(
+'WBcel235'
+'R6'
+'GRCm39'
+'mRatBN7.2'
+'GRCz11'
+'HTPOSTVEPVCF_FB'
+'HTPOSTVEPVCF_RGD'
+'HTPOSTVEPVCF_WB'
+'HTPOSTVEPVCF_ZFIN'
+'HTPOSTVEPVCF_SGD'
+)
+
+
 FILELIST=(
 'VCF_WBcel235.vcf'
 'VCF_R6.vcf'
@@ -87,11 +101,27 @@ HTPONLY=(
 'mouse'
 )
 
-parallel wget -q https://fms.alliancegenome.org/api/data/download/{}.gz ::: "${FILELIST[@]}"
+#parallel wget -q https://fms.alliancegenome.org/download/{}.gz ::: "${FILELIST[@]}"
 
-parallel gzip -d {}.gz ::: "${FILELIST[@]}"
+#gets phenotypic vcf files
+curl https://fms.alliancegenome.org/api/datafile/by/VCF?latest=true | python get_vcf_urls.py | parallel
 
-parallel --link mv {1} {2} ::: "${FILELIST[@]}" ::: "${GENERICLIST[@]}"
+#get high throughput vcf
+curl https://fms.alliancegenome.org/api/datafile/by/HTPOSTVEPVCF?latest=true | python get_vcf_urls.py | parallel
+
+#get rid of vcf for old assemblies
+rm VCF_Rnor60*
+rm VCF_GRCm38*
+
+#parallel gzip -d {}.gz ::: "${FILELIST[@]}"
+#un parallel this to make life easier
+#gzip -d *.gz
+ls *.vcf.gz | xargs -P 14 -n 1 gzip -d
+
+
+parallel --link mv *{1}.vcf {2} ::: "${BASENAME[@]}" ::: "${GENERICLIST[@]}"
+
+#parallel --link mv {1} {2} ::: "${FILELIST[@]}" ::: "${GENERICLIST[@]}"
 
 parallel bgzip {} ::: "${GENERICLIST[@]}"
 
