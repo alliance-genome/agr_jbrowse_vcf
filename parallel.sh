@@ -2,7 +2,7 @@
 
 set -e
 
-DEFAULTRELEASE=7.0.0
+DEFAULTRELEASE=7.1.0
 while getopts r:s:a:k: option
 do
 case "${option}"
@@ -137,7 +137,7 @@ parallel rm {}.gz.tbi ::: "${GENERICLIST[@]}"
 
 #parallel ./{}_fetch_and_upload.sh -r $RELEASE ::: "${HTPONLY[@]}"
 # decided not to do this in parallel--might be causing disk space issues
-./mouse_fetch_and_upload.sh -r $RELEASE
-./human_fetch_and_upload.sh -r $RELEASE
+#./mouse_fetch_and_upload.sh -r $RELEASE
+#./human_fetch_and_upload.sh -r $RELEASE
 
 
