@@ -96,10 +96,10 @@ GENERICLIST=(
 'HTPOSTVEPVCF_SGD_latest.vcf'
 )
 
-HTPONLY=(
-'human'
-'mouse'
-)
+#HTPONLY=(
+#'human'
+#'mouse'
+#)
 
 #parallel wget -q https://fms.alliancegenome.org/download/{}.gz ::: "${FILELIST[@]}"
 
@@ -132,8 +132,8 @@ parallel AWS_ACCESS_KEY_ID=$AWSACCESS AWS_SECRET_ACCESS_KEY=$AWSSECRET aws s3 cp
 parallel AWS_ACCESS_KEY_ID=$AWSACCESS AWS_SECRET_ACCESS_KEY=$AWSSECRET aws s3 cp --acl public-read {}.gz.tbi s3://$AWSBUCKET/VCF/$RELEASE/ ::: "${GENERICLIST[@]}"
 
 #some of these files can be big too
-parallel rm {}.gz ::: "${GENERICLIST[@]}"
-parallel rm {}.gz.tbi ::: "${GENERICLIST[@]}"
+#parallel rm {}.gz ::: "${GENERICLIST[@]}"
+#parallel rm {}.gz.tbi ::: "${GENERICLIST[@]}"
 
 #parallel ./{}_fetch_and_upload.sh -r $RELEASE ::: "${HTPONLY[@]}"
 # decided not to do this in parallel--might be causing disk space issues
