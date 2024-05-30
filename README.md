@@ -22,3 +22,11 @@ ready for a new release is described in the agr_jbrowse_gff repo
 
 2. Unpause the `JBrowseSoftwareProcessVCF` and `JBrowseProcessVCF` pipelines
    in GoCD (generally they are kept paused to avoid accidentally running them).
+
+# Important note about VCF updates in the FMS
+
+It is typical for the "latest" VCFs to be updated for a given release very near
+the release, as (I think) VEP is run "on last time". As a result, the
+JBrowseProcessVCF pipeline will have to be run after that update, and
+the Apollo build pipeline, ApolloSoftwareStage, will have to be run after
+that to make sure the latest VCFs are in the Apollo container.
