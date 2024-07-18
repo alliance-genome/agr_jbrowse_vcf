@@ -56,12 +56,31 @@ echo $AWSBUCKET
 echo "release"
 echo $RELEASE
 
-BASENAME=(
+VCFMOD=(
+'WBcel235'
+'R6'
+'GRCm39'
+'mRatBN7.2'
+'GRCz11'
+)
+
+HTMOD=(
+'FB'
+'RGD'
+'WB'
+'ZFIN'
+'SGD'
+)
+
+VCFBASENAME=(
 'VCF_WBcel235'
 'VCF_R6'
 'VCF_GRCm39'
 'VCF_mRatBN7.2'
 'VCF_GRCz11'
+)
+
+HTBASENAME=(
 'HTPOSTVEPVCF_FB'
 'HTPOSTVEPVCF_RGD'
 'HTPOSTVEPVCF_WB'
@@ -69,32 +88,23 @@ BASENAME=(
 'HTPOSTVEPVCF_SGD'
 )
 
-
-FILELIST=(
-'VCF_WBcel235.vcf'
-'VCF_R6.vcf'
-'VCF_GRCm39.vcf'
-'VCF_mRatBN7.2.vcf'
-'VCF_GRCz11.vcf'
-'HTPOSTVEPVCF_FB.vcf'
-'HTPOSTVEPVCF_RGD.vcf'
-'HTPOSTVEPVCF_WB.vcf'
-'HTPOSTVEPVCF_ZFIN.vcf'
-'HTPOSTVEPVCF_SGD.vcf'
-)
-
-GENERICLIST=(
+VCFGENERICLIST=(
 'worm-latest.vcf'
 'fly-latest.vcf'
 'mouse-latest.vcf'
 'rat-latest.vcf'
 'zebrafish-latest.vcf'
+)
+
+HTGENERICLIST=(
 'HTPOSTVEPVCF_FB_latest.vcf'
 'HTPOSTVEPVCF_RGD_latest.vcf'
 'HTPOSTVEPVCF_WB_latest.vcf'
 'HTPOSTVEPVCF_ZFIN_latest.vcf'
 'HTPOSTVEPVCF_SGD_latest.vcf'
 )
+
+GENERICLIST=( "${VCFGENERICLIST[@]}" "${HTGENERICLIST[@]}")
 
 #HTPONLY=(
 #'human'
@@ -104,14 +114,25 @@ GENERICLIST=(
 #parallel wget -q https://fms.alliancegenome.org/download/{}.gz ::: "${FILELIST[@]}"
 
 #gets phenotypic vcf files
-curl https://fms.alliancegenome.org/api/datafile/by/VCF?latest=true | python3 get_vcf_urls.py | parallel
+
+for mod in "${VCFMOD[@]}"; do
+	curl https://fms.alliancegenome.org/api/datafile/by/$RELEASE/VCF/$mod?latest=true   | python3 get_vcf_urls.py | bash
+done 
+
+for mod in "${HTMOD[@]}"; do
+        curl https://fms.alliancegenome.org/api/datafile/by/$RELEASE/HTPOSTVEPVCF/$mod?latest=true | python3 get_vcf_urls.py | bash
+done
+
+#parallel ( curl https://fms.alliancegenome.org/api/datafile/by/$RELEASE/VCF/{}?latest=true   | python3 get_vcf_urls.py | bash ) ::: "${VCFMOD[@]}"
+#parallel ( curl https://fms.alliancegenome.org/api/datafile/by/$RELEASE/HTVCF/{}?latest=true | python3 get_vcf_urls.py | bash ) ::: "${HTMOD[@]}"
+#curl https://fms.alliancegenome.org/api/datafile/by/VCF?latest=true | python3 get_vcf_urls.py | parallel
 
 #get high throughput vcf
-curl https://fms.alliancegenome.org/api/datafile/by/HTPOSTVEPVCF?latest=true | python3 get_vcf_urls.py | parallel
+#curl https://fms.alliancegenome.org/api/datafile/by/HTPOSTVEPVCF?latest=true | python3 get_vcf_urls.py | parallel
 
 #get rid of vcf for old assemblies
-rm VCF_Rnor60*
-rm VCF_GRCm38*
+#rm VCF_Rnor60*
+#rm VCF_GRCm38*
 
 #parallel gzip -d {}.gz ::: "${FILELIST[@]}"
 #un parallel this to make life easier
@@ -119,7 +140,8 @@ rm VCF_GRCm38*
 ls *.vcf.gz | xargs -P 14 -n 1 gzip -d
 
 
-parallel --link mv {1}*.vcf {2} ::: "${BASENAME[@]}" ::: "${GENERICLIST[@]}"
+parallel --link mv {1}*.vcf {2} ::: "${VCFBASENAME[@]}" ::: "${VCFGENERICLIST[@]}"
+parallel --link mv {1}*.vcf {2} ::: "${HTBASENAME[@]}"  ::: "${HTGENERICLIST[@]}"
 
 #parallel --link mv {1} {2} ::: "${FILELIST[@]}" ::: "${GENERICLIST[@]}"
 
