@@ -2,7 +2,7 @@
 
 set -e
 
-DEFAULTRELEASE=9.0.0
+DEFAULTRELEASE=9.1.0
 while getopts r:s:a:k: option
 do
 case "${option}"
