@@ -57,11 +57,11 @@ echo "release"
 echo $RELEASE
 
 VCFMOD=(
-'WBcel235'
-'R6'
-'GRCm39'
-'mRatBN7.2'
-'GRCz11'
+'WB'
+'FB'
+'MGI'
+'RGD'
+'ZFIN'
 )
 
 HTMOD=(
@@ -73,11 +73,11 @@ HTMOD=(
 )
 
 VCFBASENAME=(
-'VCF_WBcel235'
-'VCF_R6'
-'VCF_GRCm39'
-'VCF_mRatBN7.2'
-'VCF_GRCz11'
+'VARIANT-CONSEQUENCE_VCF_WB'
+'VARIANT-CONSEQUENCE_VCF_FB'
+'VARIANT-CONSEQUENCE_VCF_MGI'
+'VARIANT-CONSEQUENCE_VCF_RGD'
+'VARIANT-CONSEQUENCE_VCF_ZFIN'
 )
 
 HTBASENAME=(
@@ -113,11 +113,11 @@ GENERICLIST=( "${VCFGENERICLIST[@]}" "${HTGENERICLIST[@]}")
 
 #parallel wget -q https://fms.alliancegenome.org/download/{}.gz ::: "${FILELIST[@]}"
 
-#gets phenotypic vcf files
+#gets phenotypic (non-HTP) vcf files from the downloads site
 
 for mod in "${VCFMOD[@]}"; do
-	curl https://fms.alliancegenome.org/api/datafile/by/$RELEASE/VCF/$mod?latest=true   | python3 get_vcf_urls.py | bash
-done 
+	curl -O https://download.alliancegenome.org/$RELEASE/downloads/VARIANT-CONSEQUENCE_VCF_$mod.vcf.gz
+done
 
 for mod in "${HTMOD[@]}"; do
         curl https://fms.alliancegenome.org/api/datafile/by/$RELEASE/HTPOSTVEPVCF/$mod?latest=true | python3 get_vcf_urls.py | bash
