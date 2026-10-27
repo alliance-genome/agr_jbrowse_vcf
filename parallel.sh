@@ -1,6 +1,8 @@
 #!/bin/bash
 
 set -e
+set -o pipefail
+trap 'echo "*** FAILED (line $LINENO): $BASH_COMMAND" >&2' ERR
 
 DEFAULTRELEASE=9.2.0
 while getopts r:s:a:k: option
@@ -116,7 +118,7 @@ GENERICLIST=( "${VCFGENERICLIST[@]}" "${HTGENERICLIST[@]}")
 #gets phenotypic (non-HTP) vcf files from the downloads site
 
 for mod in "${VCFMOD[@]}"; do
-	curl -O https://download.alliancegenome.org/$RELEASE/downloads/VARIANT-CONSEQUENCE_VCF_$mod.vcf.gz
+	curl -f -O https://download.alliancegenome.org/$RELEASE/downloads/VARIANT-CONSEQUENCE_VCF_$mod.vcf.gz
 done
 
 for mod in "${HTMOD[@]}"; do

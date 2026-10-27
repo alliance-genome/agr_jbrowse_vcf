@@ -6,5 +6,5 @@ import json
 data = json.load(sys.stdin)
 
 for d in data:
-    print("curl -O "+d['s3Url']+"\n")
+    print("curl -f -O "+d['s3Url']+"\n")
 
