@@ -2,7 +2,7 @@
 
 set -e
 
-DEFAULTRELEASE=9.1.0
+DEFAULTRELEASE=9.2.0
 while getopts r:s:a:k: option
 do
 case "${option}"
@@ -68,7 +68,7 @@ HTMOD=(
 'FB'
 'RGD'
 'WB'
-'ZFIN'
+#'ZFIN'
 'SGD'
 )
 
@@ -84,7 +84,7 @@ HTBASENAME=(
 'HTPOSTVEPVCF_FB'
 'HTPOSTVEPVCF_RGD'
 'HTPOSTVEPVCF_WB'
-'HTPOSTVEPVCF_ZFIN'
+#'HTPOSTVEPVCF_ZFIN'
 'HTPOSTVEPVCF_SGD'
 )
 
@@ -100,7 +100,7 @@ HTGENERICLIST=(
 'HTPOSTVEPVCF_FB_latest.vcf'
 'HTPOSTVEPVCF_RGD_latest.vcf'
 'HTPOSTVEPVCF_WB_latest.vcf'
-'HTPOSTVEPVCF_ZFIN_latest.vcf'
+#'HTPOSTVEPVCF_ZFIN_latest.vcf'
 'HTPOSTVEPVCF_SGD_latest.vcf'
 )
 
